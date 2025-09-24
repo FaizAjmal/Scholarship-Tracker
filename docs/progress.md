@@ -18,5 +18,12 @@
 - Updated `index.html` to include form + list
 - Project now allows adding scholarships (name + deadline) to a list
 
+## Day 5
+- Added Flask backend (`app.py`)
+- Created SQLite database (`database.py`)
+- API routes: `/add`, `/list`
+- Connected frontend with backend using fetch()
+- Scholarships are now stored **persistently in database**
+
 
 
