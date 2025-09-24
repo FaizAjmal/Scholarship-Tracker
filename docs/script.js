@@ -1,9 +1,9 @@
-const form = document.getElementById("scholarship-form");
-const list = document.getElementById("scholarship-list");
+const API_URL = "https://scholarship-tracker-backend.onrender.com";
 
 async function loadScholarships() {
-    const res = await fetch("http://127.0.0.1:5000/list");
+    const res = await fetch(`${API_URL}/list`);
     const data = await res.json();
+    const list = document.getElementById("scholarship-list");
     list.innerHTML = "";
     data.forEach(sch => {
         const li = document.createElement("li");
@@ -12,21 +12,20 @@ async function loadScholarships() {
     });
 }
 
-form.addEventListener("submit", async (e) => {
+document.getElementById("scholarship-form").addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const name = document.getElementById("name").value;
     const deadline = document.getElementById("deadline").value;
 
     if (name && deadline) {
-        await fetch("http://127.0.0.1:5000/add", {
+        await fetch(`${API_URL}/add`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({name, deadline})
         });
-        form.reset();
+        e.target.reset();
         loadScholarships();
     }
 });
 
-loadScholarships();  // load existing scholarships on page load
+loadScholarships();
