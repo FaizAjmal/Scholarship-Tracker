@@ -18,10 +18,16 @@ document.getElementById("scholarship-form").addEventListener("submit", async (e)
     const deadline = document.getElementById("deadline").value;
 
     if (name && deadline) {
-        await fetch(`${API_URL}/add`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({name, deadline})
+        await fetch("https://scholarship-tracker-backend.onrender.com/add", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    name: scholarshipName,
+    deadline: scholarshipDeadline,
+    link: scholarshipLink   // ✅ must send link too
+  })
+});
+
         });
         e.target.reset();
         loadScholarships();
