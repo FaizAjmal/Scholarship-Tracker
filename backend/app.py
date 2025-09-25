@@ -3,13 +3,16 @@ from flask_cors import CORS
 import database
 
 app = Flask(__name__)
-CORS(app)  # allow frontend JS to talk to backend
+CORS(app) 
 
-@app.route("/add", methods=["POST"])
+@app.route('/add', methods=['POST'])
 def add_scholarship():
     data = request.json
-    name = data.get("name")
-    deadline = data.get("deadline")
+    name = data['name']
+    deadline = data['deadline']
+    link = data['link']        # ✅ fetch link from request
+    database.add_scholarship(name, deadline, link)  # ✅ pass all args
+    return jsonify({"message": "Scholarship added"}), 201
 
     if not name or not deadline:
         return jsonify({"error": "Missing fields"}), 400
