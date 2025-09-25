@@ -1,43 +1,57 @@
-const API_URL = "https://scholarship-tracker-backend.onrender.com";
+let scholarships = JSON.parse(localStorage.getItem('scholarships') || '[]');
 
-// Load scholarships and display in the list
-async function loadScholarships() {
-    const res = await fetch(`${API_URL}/list`);
-    const data = await res.json();
+function displayScholarships() {
     const list = document.getElementById("scholarship-list");
     list.innerHTML = "";
-    data.forEach(sch => {
+
+    if (scholarships.length === 0) {
+        list.innerHTML = "<li>No scholarships added yet. Add your first scholarship above!</li>";
+        return;
+    }
+
+    scholarships.forEach((sch, index) => {
         const li = document.createElement("li");
-        li.textContent = `${sch.name} — Deadline: ${sch.deadline}`;
+        li.innerHTML = `
+            <strong>${sch.name}</strong><br>
+            <strong>Deadline:</strong> ${sch.deadline}<br>
+            <strong>Link:</strong> <a href="${sch.link}" target="_blank" rel="noopener">Visit Scholarship</a><br>
+            <strong>Added:</strong> ${sch.dateAdded}<br>
+            <button onclick="deleteScholarship(${index})" style="background: #e74c3c; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; margin-top: 5px;">Delete</button>
+        `;
         list.appendChild(li);
     });
 }
 
 // Handle form submission
-document.getElementById("scholarship-form").addEventListener("submit", async (e) => {
+document.getElementById("scholarship-form").addEventListener("submit", (e) => {
     e.preventDefault();
+    console.log("Form submitted!"); // Debug message
 
-    const name = document.getElementById("name").value;
+    const name = document.getElementById("name").value.trim();
     const deadline = document.getElementById("deadline").value;
-    const link = document.getElementById("link").value; // Make sure your form has an input with id="link"
+    const link = document.getElementById("link").value.trim();
 
-    if (name && deadline && link) {
-        await fetch(`${API_URL}/add`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: name,
-                deadline: deadline,
-                link: link
-            })
-        });
-
-        e.target.reset();
-        loadScholarships();
-    } else {
+    // Validation
+    if (!name || !deadline || !link) {
         alert("Please fill all fields including the link.");
+        return;
     }
-});
 
-// Initial load
-loadScholarships();
+    // Validate URL format
+    try {
+        new URL(link);
+    } catch (e) {
+        alert("Please enter a valid URL (starting with http:// or https://)");
+        return;
+    }
+
+    // Add scholarship
+    const newScholarship = {
+        name: name,
+        deadline: deadline,
+        link: link,
+        dateAdded: new Date().toLocaleDateString()
+    };
+
+    scholarships.push(newScholarship);
+    localStorage.s
