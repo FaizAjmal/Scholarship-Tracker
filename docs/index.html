@@ -9,22 +9,24 @@
 <body>
     <header>
         <h1>🎓 Scholarship Tracker</h1>
-        <p>Track your scholarships easily</p>
     </header>
 
     <main>
-        <section id="form-section">
+        <section id="add-scholarship">
             <h2>Add Scholarship</h2>
             <form id="scholarship-form">
-                <input type="text" id="name" placeholder="Scholarship Name" required>
-                <input type="date" id="deadline" required>
-                <button type="submit">Add</button>
+                <input type="text" id="name" name="name" placeholder="Scholarship Name" required>
+                <input type="date" id="deadline" name="deadline" required>
+                <input type="url" id="link" name="link" placeholder="Scholarship Link (https://...)" required>
+                <button type="submit">Add Scholarship</button>
             </form>
         </section>
 
-        <section id="list-section">
+        <section id="scholarships">
             <h2>My Scholarships</h2>
-            <ul id="scholarship-list"></ul>
+            <ul id="scholarship-list">
+                <!-- Scholarships will be displayed here -->
+            </ul>
         </section>
     </main>
 
