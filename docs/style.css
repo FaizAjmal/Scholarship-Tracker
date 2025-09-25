@@ -1,38 +1,73 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     margin: 0;
     padding: 0;
+    min-height: 100vh;
 }
 
 header {
-    background: #2c3e50;
+    background: rgba(44, 62, 80, 0.9);
     color: white;
     padding: 20px;
     text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
 }
 
 main {
-    width: 80%;
+    max-width: 800px;
     margin: 20px auto;
+    padding: 0 20px;
+}
+
+section {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 
 form {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 15px;
 }
 
-input, button {
-    padding: 10px;
-    font-size: 14px;
+input {
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
 }
 
 button {
     background: #27ae60;
     color: white;
     border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -45,8 +80,48 @@ ul {
 }
 
 li {
-    background: white;
-    margin: 5px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
+    background: #f8f9fa;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
 }
+
+li:hover {
+    background: #f1f3f4;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    main {
+        padding: 0 10px;
+    }
+
+    form {
+        gap: 10px;
+    }
+
+    input, button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Empty state styling */
+li:first-child:last-child {
